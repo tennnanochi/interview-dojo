@@ -1,0 +1,28 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { AppLayout } from './components/AppLayout'
+import { HomeScreen } from './screens/HomeScreen'
+import { CardListScreen } from './screens/CardListScreen'
+import { RecordsScreen } from './screens/RecordsScreen'
+import { ComingSoonScreen } from './screens/ComingSoonScreen'
+
+export function App() {
+  return (
+    <Routes>
+      {/* 下部タブのある画面 */}
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/cards" element={<CardListScreen />} />
+        <Route
+          path="/fermi"
+          element={<ComingSoonScreen title="フェルミ道場" lead="5ステップの型で1問ずつ解く" />}
+        />
+        <Route
+          path="/case"
+          element={<ComingSoonScreen title="ケース道場" lead="タイマーとメモで本番形式の練習" />}
+        />
+        <Route path="/records" element={<RecordsScreen />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
+}

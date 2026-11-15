@@ -15,3 +15,10 @@
 
 ## 問題データを直すとき
 `data/` のJSONを編集してpushするだけで反映される。idは変えず、カードの数値を直したら `version` を1上げる。
+
+## ローカルで動かす
+```bash
+npm install
+npm run dev
+```
+http://localhost:5173 を開く。Supabaseの接続値は `.env.example` を `.env.local` にコピーして入れる(ログインと同期を作るまでは不要)。

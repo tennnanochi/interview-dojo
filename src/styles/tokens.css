@@ -1,0 +1,19 @@
+/* 配色・フォントの変数(CLAUDE.md「デザイン」)。ダークモードはここの値を差し替えて対応する */
+:root {
+  --accent: #1f5f4a;
+  --accent-strong: #174a3a;
+  --accent-soft: #dcebe4;
+  --on-accent: #ffffff;
+  --bg: #eef1ee;
+  --surface: #ffffff;
+  --text: #18221d;
+  --text-sub: #5d6b64;
+  --line: #d3dbd6;
+  --danger: #a3322b;
+
+  --font-body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --font-num: 'JetBrains Mono', ui-monospace, monospace;
+
+  --tap: 44px; /* タップ領域の下限 */
+  --app-width: 480px; /* PCでもスマホ幅で中央に置く */
+}
