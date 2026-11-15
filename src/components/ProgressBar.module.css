@@ -1,5 +1,5 @@
 .track {
-  flex: 1;
+  flex: 1 0 auto; /* 横並びでは残り幅いっぱい、縦並びでは高さ6pxのまま */
   height: 6px;
   background: var(--line);
   border-radius: 3px;

@@ -1,0 +1,178 @@
+.sheet {
+  width: 100%;
+  max-width: var(--app-width);
+  max-height: 88dvh;
+  margin: auto auto 0;
+  padding: 0;
+  border: none;
+  border-radius: 22px 22px 0 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.sheet::backdrop {
+  background: rgb(24 34 29 / 0.45);
+}
+
+.sheet[open] {
+  display: flex;
+  animation: rise 0.2s ease;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+.inner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.close {
+  width: var(--tap);
+  height: var(--tap);
+  margin-right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--text);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode {
+  min-height: 60px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mode.on {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.modeText {
+  display: flex;
+  flex-direction: column;
+}
+
+.modeTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.modeSub {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.modeCount {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-sub);
+}
+
+.mode.on .modeCount {
+  color: var(--accent);
+}
+
+.label {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  min-height: var(--tap);
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chip :global(.num) {
+  color: var(--text-sub);
+}
+
+.chip.on {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.chip.on :global(.num) {
+  color: var(--on-accent);
+}
+
+.start {
+  flex: none;
+  min-height: 56px;
+  border: none;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.start:disabled {
+  background: var(--line);
+  color: var(--text-sub);
+  cursor: default;
+}

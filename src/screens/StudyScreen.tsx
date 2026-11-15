@@ -1,20 +1,30 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { FlashCard } from '../components/FlashCard'
 import { GradeButtons } from '../components/GradeButtons'
 import { ProgressBar } from '../components/ProgressBar'
 import { cards, type Card } from '../data/cards'
 import type { CardState, Grade } from '../db/types'
 import { formatDateKey, toDateKey } from '../domain/date'
-import { pickSession } from '../domain/session'
+import { parseStudyOptions, pickSession, type StudyMode } from '../domain/session'
 import { gradeCard, useCardStates } from '../hooks/useCardStates'
 import s from './StudyScreen.module.css'
 
 type Result = { card: Card; grade: Grade; state: CardState }
 
+// 出すカードがないときの説明(モードごと)
+const EMPTY_TEXT: Record<StudyMode, string> = {
+  due: '復習期限が来たカードはありません。新しいカードは、暗記帳の「未暗記だけ」から練習できます。',
+  unlearned: '未暗記のカードはありません。',
+  all: '該当するカードがありません。',
+}
+
 // カード出題。1セット分のカードをめくって3段階で採点し、最後に結果を出す
 export function StudyScreen() {
   const { ready, states, error } = useCardStates()
+  const [params] = useSearchParams()
+  const options = parseStudyOptions(params)
+  const pick = () => pickSession(cards, states, toDateKey(new Date()), options)
   const [queue, setQueue] = useState<Card[] | null>(null)
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
@@ -22,8 +32,9 @@ export function StudyScreen() {
 
   // 履歴を読み終えたら、1セット分のカードを決める(途中で入れ替えない)
   useEffect(() => {
-    if (ready && queue === null) setQueue(pickSession(cards, states, toDateKey(new Date())))
-  }, [ready, queue, states])
+    if (ready && queue === null) setQueue(pick())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, queue])
 
   const card = queue?.[index]
 
@@ -100,15 +111,15 @@ export function StudyScreen() {
           </div>
         </div>
       ) : (
-        <SessionResult results={results} hasMore={pickSession(cards, states, toDateKey(new Date())).length > 0} onRestart={restart} />
+        <SessionResult results={results} hasMore={pick().length > 0} emptyText={EMPTY_TEXT[options.mode]} onRestart={restart} />
       )}
     </div>
   )
 }
 
-type ResultProps = { results: Result[]; hasMore: boolean; onRestart: () => void }
+type ResultProps = { results: Result[]; hasMore: boolean; emptyText: string; onRestart: () => void }
 
-function SessionResult({ results, hasMore, onRestart }: ResultProps) {
+function SessionResult({ results, hasMore, emptyText, onRestart }: ResultProps) {
   const count = (g: Grade) => results.filter((r) => r.grade === g).length
 
   // このセットのカードのうち、いちばん早い復習日とその枚数
@@ -122,7 +133,7 @@ function SessionResult({ results, hasMore, onRestart }: ResultProps) {
         {results.length === 0 ? (
           <>
             <h1 className={s.resultTitle}>今日やるカードはありません</h1>
-            <p className={s.resultSub}>復習期限が来たカードも、まだ出していないカードもありません。</p>
+            <p className={s.resultSub}>{emptyText}</p>
           </>
         ) : (
           <>

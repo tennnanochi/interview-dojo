@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { ModeSheet } from '../components/ModeSheet'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards, groups } from '../data/cards'
 import s from './screens.module.css'
 
 // 暗記帳。土台の段階では、データが読めていることだけを見せる(一覧は4回目で作る)
 export function CardListScreen() {
+  const [sheetOpen, setSheetOpen] = useState(false)
   return (
     <>
       <ScreenHeader title="暗記帳" right={<span className="num">全 {cards.length}枚</span>} />
@@ -18,12 +20,13 @@ export function CardListScreen() {
               </span>
             ))}
           </div>
-          <span className={s.sub}>一覧と出題モードは、このあと順に追加します</span>
+          <span className={s.sub}>一覧は、このあと追加します</span>
         </section>
-        <Link to="/cards/study" className={s.primaryButton}>
+        <button type="button" className={s.primaryButton} onClick={() => setSheetOpen(true)}>
           カードで練習
-        </Link>
+        </button>
       </div>
+      <ModeSheet open={sheetOpen} onClose={() => setSheetOpen(false)} />
     </>
   )
 }

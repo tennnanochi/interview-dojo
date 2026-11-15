@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
+import { ProgressBar } from '../components/ProgressBar'
+import { toDateKey } from '../domain/date'
+import { countDue, studyPath } from '../domain/session'
 import { useCardStates } from '../hooks/useCardStates'
 import s from './screens.module.css'
 
-// ホーム。「今日の復習」の枚数は、出題モードと一緒に次の回で入れる
+// ホーム。今日の復習枚数と、練習メニューへの入口
 export function HomeScreen() {
-  const { states } = useCardStates()
+  const { ready, states } = useCardStates()
+  const due = countDue(cards, states, toDateKey(new Date()))
   const known = [...states.values()].filter((st) => st.status === 'known').length
 
   return (
@@ -14,15 +18,28 @@ export function HomeScreen() {
       <ScreenHeader eyebrow="おかえりなさい" title="面接トレーニング" />
       <div className={s.body}>
         <section className={s.hero}>
-          <span className={s.heroLabel}>覚えたカード</span>
+          <span className={s.heroLabel}>今日の復習</span>
           <div className={s.heroNumber}>
-            <strong>{known}</strong>
-            <span>/ {cards.length} 枚</span>
+            <strong>{ready ? due : '-'}</strong>
+            <span>枚</span>
           </div>
-          <span className={s.heroLabel}>復習期限が来たカードから、1セット20枚ずつ出します</span>
-          <Link to="/cards/study" className={s.heroButton}>
-            カードをはじめる
-          </Link>
+          {due > 0 ? (
+            <>
+              <span className={s.heroLabel}>復習期限が来たカード(「忘れた」は翌日に入ります)</span>
+              <Link to={studyPath({ mode: 'due' })} className={s.heroButton}>
+                復習をはじめる
+              </Link>
+            </>
+          ) : known < cards.length ? (
+            <>
+              <span className={s.heroLabel}>今日の復習はありません。新しいカードを進めましょう</span>
+              <Link to={studyPath({ mode: 'unlearned' })} className={s.heroButton}>
+                未暗記を練習する
+              </Link>
+            </>
+          ) : (
+            <span className={s.heroLabel}>今日の復習はありません。全部覚えています</span>
+          )}
         </section>
 
         <span className={s.sectionLabel}>練習メニュー</span>
@@ -34,6 +51,7 @@ export function HomeScreen() {
               覚えた <span className="num">{known} / {cards.length}</span>
             </span>
           </div>
+          <ProgressBar value={known} max={cards.length} label="暗記帳の進み具合" />
           <span className={s.sub}>人口・面積・市場規模・アンカーの数字</span>
         </Link>
 

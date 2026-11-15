@@ -106,6 +106,8 @@
 }
 
 .primaryButton {
+  border: none;
+  cursor: pointer;
   border-radius: 14px;
   background: var(--accent);
   color: var(--on-accent);
