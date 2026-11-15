@@ -9,7 +9,7 @@
 ## フォルダ
 | パス | 中身 |
 |---|---|
-| `data/` | 問題データ(cards.json 273件、fermi.json 186問、cases.json 150問) |
+| `data/` | 問題データ(cards.json 273件、fermi.json 186問、cases.json 258問) |
 | `docs/` | 仕様書と依頼文 |
 | `supabase/schema.sql` | 学習履歴のテーブル定義(Supabaseに適用済み) |
 

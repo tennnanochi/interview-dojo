@@ -54,7 +54,7 @@ MVPは暗記帳と同期。フェルミ道場とケース道場は、既存ア�
 
 | 機能 | 内容 | 優先度 |
 |---|---|---|
-| お題バンク | 既存150問。フェルミ/ケース/複合で絞り込み、過去のスコア表示 | MVP2 |
+| お題バンク | 258問(既存150問+追加108問。うち45問は会社別の過去問)。フェルミ/ケース/複合・会社で絞り込み、過去のスコア表示 | MVP2 |
 | 練習画面 | タイマー、メモ用紙、電卓、参照パネル(暗記帳の数字を共有) | MVP2 |
 | 自己採点 | チェックリスト(前提確認、+10%と+50%の施策、単価低下の相殺など)で採点 | MVP2 |
 | AI面接官・講評 | 回答を送ると深掘り質問と講評が返る(「AI講評の扱い」参照) | 次期 |
@@ -92,7 +92,7 @@ MVPは暗記帳と同期。フェルミ道場とケース道場は、既存ア�
 |---|---|---|
 | cards.json(暗記帳) | id、legacyId、version、group、section、item(項目)、value(暗記値)、note(実数・メモ)、source(video/added/confirmed)、updated | 273件 |
 | fermi.json(フェルミ道場) | types(試算方法12種の説明)、questions(id、title、genre、want/who/stockFlow、scope、approaches、adopted、why、breakdown[3段]、segment、check、bookNo、origin) | 186問 |
-| cases.json(ケース道場) | levels、typeNames、questions(id、type=fermi/case/combo、level、industry、text) | 150問 |
+| cases.json(ケース道場) | levels、typeNames、patterns(ケースの5つの型)、questions(id、type=fermi/case/combo、level、industry、text。会社別の過去問には company と askedAt=出題年月 も持つ) | 258問 |
 
 - **idは変えない**: 履歴はidで紐づくので、数値や文言を直してもidはそのままにする。旧暗記帳は「区分|項目名」をidにしていた(cards.json の legacyId)。新アプリでは card-0001 形式の専用idを使う。
 - **数値を直したら復習し直す**: カードに version を持たせ、version が上がったら「覚えた」を外して復習対象に戻す。
