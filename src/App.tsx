@@ -3,6 +3,7 @@ import { AppLayout } from './components/AppLayout'
 import { HomeScreen } from './screens/HomeScreen'
 import { CardListScreen } from './screens/CardListScreen'
 import { RecordsScreen } from './screens/RecordsScreen'
+import { StudyScreen } from './screens/StudyScreen'
 import { ComingSoonScreen } from './screens/ComingSoonScreen'
 
 export function App() {
@@ -22,6 +23,8 @@ export function App() {
         />
         <Route path="/records" element={<RecordsScreen />} />
       </Route>
+      {/* 出題中はタブを出さず、カードに集中する */}
+      <Route path="/cards/study" element={<StudyScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

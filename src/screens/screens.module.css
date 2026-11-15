@@ -86,3 +86,27 @@
   flex-wrap: wrap;
   gap: 6px;
 }
+
+.heroButton,
+.primaryButton {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heroButton {
+  margin-top: 4px;
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.primaryButton {
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--on-accent);
+}

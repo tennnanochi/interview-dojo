@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
+import { useCardStates } from '../hooks/useCardStates'
 import s from './screens.module.css'
 
-// ホーム。「今日の復習」の枚数と開始ボタンは、出題機能ができてから入れる
+// ホーム。「今日の復習」の枚数は、出題モードと一緒に次の回で入れる
 export function HomeScreen() {
+  const { states } = useCardStates()
+  const known = [...states.values()].filter((st) => st.status === 'known').length
+
   return (
     <>
       <ScreenHeader eyebrow="おかえりなさい" title="面接トレーニング" />
       <div className={s.body}>
         <section className={s.hero}>
-          <span className={s.heroLabel}>暗記帳のカード</span>
+          <span className={s.heroLabel}>覚えたカード</span>
           <div className={s.heroNumber}>
-            <strong>{cards.length}</strong>
-            <span>枚</span>
+            <strong>{known}</strong>
+            <span>/ {cards.length} 枚</span>
           </div>
-          <span className={s.heroLabel}>出題と「今日の復習」はこのあと追加します</span>
+          <span className={s.heroLabel}>復習期限が来たカードから、1セット20枚ずつ出します</span>
+          <Link to="/cards/study" className={s.heroButton}>
+            カードをはじめる
+          </Link>
         </section>
 
         <span className={s.sectionLabel}>練習メニュー</span>
@@ -23,7 +30,9 @@ export function HomeScreen() {
         <Link to="/cards" className={`${s.panel} ${s.link}`}>
           <div className={s.panelHead}>
             <span className={s.panelTitle}>暗記帳</span>
-            <span className={`${s.sub} num`}>{cards.length}枚</span>
+            <span className={s.sub}>
+              覚えた <span className="num">{known} / {cards.length}</span>
+            </span>
           </div>
           <span className={s.sub}>人口・面積・市場規模・アンカーの数字</span>
         </Link>

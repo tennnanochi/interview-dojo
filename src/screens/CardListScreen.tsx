@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards, groups } from '../data/cards'
 import s from './screens.module.css'
@@ -17,8 +18,11 @@ export function CardListScreen() {
               </span>
             ))}
           </div>
-          <span className={s.sub}>カード出題と一覧は、このあと順に追加します</span>
+          <span className={s.sub}>一覧と出題モードは、このあと順に追加します</span>
         </section>
+        <Link to="/cards/study" className={s.primaryButton}>
+          カードで練習
+        </Link>
       </div>
     </>
   )
