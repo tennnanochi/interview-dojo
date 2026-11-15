@@ -3276,6 +3276,54 @@
       "note": "リゾートはさらに低い",
       "source": "added",
       "updated": false
+    },
+    {
+      "id": "card-0274",
+      "legacyId": "施設数(追加)|タクシー",
+      "version": 1,
+      "group": "店舗・施設",
+      "section": "施設数(追加)",
+      "item": "タクシー",
+      "value": "約19万台",
+      "note": "194,529台(令和5年度・全国ハイヤー・タクシー連合会)",
+      "source": "added",
+      "updated": false
+    },
+    {
+      "id": "card-0275",
+      "legacyId": "施設数(追加)|高速道路のSA・PA",
+      "version": 1,
+      "group": "店舗・施設",
+      "section": "施設数(追加)",
+      "item": "高速道路のSA・PA",
+      "value": "約900か所",
+      "note": "891か所(2026年3月・日本さぱ協会)",
+      "source": "added",
+      "updated": false
+    },
+    {
+      "id": "card-0276",
+      "legacyId": "施設数(追加)|電柱",
+      "version": 1,
+      "group": "店舗・施設",
+      "section": "施設数(追加)",
+      "item": "電柱",
+      "value": "約3,600万本",
+      "note": "2021年度末・国土交通省",
+      "source": "added",
+      "updated": false
+    },
+    {
+      "id": "card-0277",
+      "legacyId": "1店舗の日販(追加)|マクドナルド",
+      "version": 1,
+      "group": "店舗・施設",
+      "section": "1店舗の日販(追加)",
+      "item": "マクドナルド",
+      "value": "約76万円/日",
+      "note": "全店売上8,291億円÷2,988店÷365日(2024年12月期)",
+      "source": "added",
+      "updated": false
     }
   ]
 }
