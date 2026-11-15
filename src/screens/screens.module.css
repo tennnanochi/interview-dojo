@@ -74,19 +74,6 @@
   line-height: 1;
 }
 
-.tag {
-  font-size: 12px;
-  background: var(--accent-soft);
-  border-radius: 6px;
-  padding: 2px 8px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
 .heroButton,
 .primaryButton {
   min-height: 52px;
