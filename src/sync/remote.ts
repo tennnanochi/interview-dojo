@@ -1,16 +1,19 @@
 // Supabaseのテーブル(card_states / reviews)とのやり取り。列名は supabase/schema.sql に合わせる
 import type { SupabaseClient } from '@supabase/supabase-js'
-import type { CardState, CardStatus, Grade, Review } from '../db/types'
+import type { Attempt, AttemptKind, CardState, CardStatus, Grade, Review, SelfScore } from '../db/types'
 
 export const REVIEW_PAGE = 1000
 
 export type RemoteReview = Review & { id: number }
+export type RemoteAttempt = Attempt & { id: number }
 
 export type Remote = {
   fetchCardStates(): Promise<CardState[]>
   upsertCardStates(states: CardState[]): Promise<void>
   insertReviews(reviews: Review[]): Promise<void>
   fetchReviewsAfter(lastId: number): Promise<RemoteReview[]> // idの小さい順に最大 REVIEW_PAGE 件
+  insertAttempts(attempts: Attempt[]): Promise<void>
+  fetchAttemptsAfter(lastId: number): Promise<RemoteAttempt[]> // idの小さい順に最大 REVIEW_PAGE 件
 }
 
 type StateRow = {
@@ -22,6 +25,15 @@ type StateRow = {
   updated_at: string
 }
 type ReviewRow = { id: number; card_id: string; grade: Grade; reviewed_at: string }
+type AttemptRow = {
+  id: number
+  kind: AttemptKind
+  question_id: string
+  answer: string | null
+  self_score: SelfScore | null
+  duration_sec: number | null
+  created_at: string
+}
 
 // 時刻は端末と同じ書き方(ISO・ミリ秒)にそろえる
 const iso = (t: string) => new Date(t).toISOString()
@@ -82,6 +94,45 @@ export function supabaseRemote(client: SupabaseClient, userId: string): Remote {
       return (data as ReviewRow[]).map((r) => {
         const reviewedAt = iso(r.reviewed_at)
         return { id: r.id, key: `${r.card_id}|${reviewedAt}`, cardId: r.card_id, grade: r.grade, reviewedAt, synced: true }
+      })
+    },
+
+    async insertAttempts(attempts) {
+      const rows = attempts.map((a) => ({
+        user_id: userId,
+        kind: a.kind,
+        question_id: a.questionId,
+        answer: a.answer,
+        self_score: a.selfScore,
+        duration_sec: a.durationSec,
+        created_at: a.createdAt,
+      }))
+      const { error } = await client.from('attempts').insert(rows)
+      if (error) throw error
+    },
+
+    async fetchAttemptsAfter(lastId) {
+      const { data, error } = await client
+        .from('attempts')
+        .select('id,kind,question_id,answer,self_score,duration_sec,created_at')
+        .eq('user_id', userId)
+        .gt('id', lastId)
+        .order('id', { ascending: true })
+        .limit(REVIEW_PAGE)
+      if (error) throw error
+      return (data as AttemptRow[]).map((r) => {
+        const createdAt = iso(r.created_at)
+        return {
+          id: r.id,
+          key: `${r.kind}|${r.question_id}|${createdAt}`,
+          kind: r.kind,
+          questionId: r.question_id,
+          answer: r.answer ?? '{}',
+          selfScore: r.self_score ?? { checks: [], max: 0 },
+          durationSec: r.duration_sec,
+          createdAt,
+          synced: true,
+        }
       })
     },
   }

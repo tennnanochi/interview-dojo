@@ -159,3 +159,38 @@ a.secondary {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.recent {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recent li {
+  border-top: 1px solid var(--line);
+}
+
+.recentRow {
+  min-height: 52px;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.recentText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.recentTitle {
+  font-size: 14px;
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

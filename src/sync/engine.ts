@@ -1,10 +1,11 @@
 // 同期1回分の流れ(仕様書「同期の仕組み」)
-import { getMeta, loadUnsyncedReviews, saveReviews, setMeta } from '../db/local'
+import { getMeta, loadUnsyncedAttempts, loadUnsyncedReviews, saveAttempts, saveReviews, setMeta } from '../db/local'
 import { mergeStates } from '../domain/merge'
 import { adoptRemote, getStates, markClean, whenReady } from '../hooks/useCardStates'
 import { REVIEW_PAGE, type Remote } from './remote'
 
 const LAST_REVIEW_ID = 'lastReviewId'
+const LAST_ATTEMPT_ID = 'lastAttemptId'
 
 export async function syncOnce(remote: Remote): Promise<void> {
   await whenReady()
@@ -33,4 +34,20 @@ export async function syncOnce(remote: Remote): Promise<void> {
   await adoptRemote(adopt)
   if (push.length > 0) await remote.upsertCardStates(push)
   await markClean([...push, ...clean])
+
+  // 4. フェルミ道場・ケース道場の記録:採点ログと同じく、未送信分を追記し、続きから取り込む
+  const unsentAttempts = await loadUnsyncedAttempts()
+  if (unsentAttempts.length > 0) {
+    await remote.insertAttempts(unsentAttempts)
+    await saveAttempts(unsentAttempts.map((a) => ({ ...a, synced: true })))
+  }
+  let attemptCursor = (await getMeta<number>(LAST_ATTEMPT_ID)) ?? 0
+  for (;;) {
+    const rows = await remote.fetchAttemptsAfter(attemptCursor)
+    if (rows.length === 0) break
+    await saveAttempts(rows.map(({ id: _id, ...attempt }) => attempt))
+    attemptCursor = rows[rows.length - 1].id
+    await setMeta(LAST_ATTEMPT_ID, attemptCursor)
+    if (rows.length < REVIEW_PAGE) break
+  }
 }

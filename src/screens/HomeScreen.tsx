@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { SyncBadge } from '../components/SyncBadge'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
-import { caseQuestions } from '../data/cases'
+import { caseById, caseQuestions, type CaseQuestion } from '../data/cases'
 import { fermiById, fermiQuestions, type FermiQuestion } from '../data/fermi'
 import { loadDrafts } from '../db/local'
 import { ProgressBar } from '../components/ProgressBar'
@@ -17,8 +17,11 @@ export function HomeScreen() {
   const { ready, states } = useCardStates()
   const [resume, setResume] = useState<FermiQuestion | null>(null) // フェルミ道場で、いちばん最近の書きかけ
 
+  const [resumeCase, setResumeCase] = useState<CaseQuestion | null>(null) // ケース道場で、いちばん最近の書きかけ
+
   useEffect(() => {
     loadDrafts('fermi').then((list) => setResume((list[0] && fermiById.get(list[0].questionId)) ?? null), (e) => console.error(e))
+    loadDrafts('case').then((list) => setResumeCase((list[0] && caseById.get(list[0].questionId)) ?? null), (e) => console.error(e))
   }, [])
   const due = countDue(cards, states, toDateKey(new Date()))
   const known = [...states.values()].filter((st) => st.status === 'known').length
@@ -73,12 +76,12 @@ export function HomeScreen() {
           <span className={s.sub}>{resume ? resume.title : '5ステップの型で1問ずつ解く'}</span>
         </Link>
 
-        <Link to="/case" className={`${s.panel} ${s.link}`}>
+        <Link to={resumeCase ? `/case/${resumeCase.id}` : '/case'} className={`${s.panel} ${s.link}`}>
           <div className={s.panelHead}>
             <span className={s.panelTitle}>ケース道場</span>
-            <span className={`${s.sub} num`}>{caseQuestions.length}問</span>
+            <span className={`${s.sub} num`}>{resumeCase ? '続きから' : `${caseQuestions.length}問`}</span>
           </div>
-          <span className={s.sub}>タイマーとメモで本番形式の練習</span>
+          <span className={s.sub}>{resumeCase ? resumeCase.text : 'タイマーとメモで本番形式の練習'}</span>
         </Link>
       </div>
     </>

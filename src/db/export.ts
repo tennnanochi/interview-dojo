@@ -1,11 +1,18 @@
 // 学習履歴の書き出し(JSON)。万一のときのバックアップ用
 import { toDateKey } from '../domain/date'
-import { loadCardStates, loadReviews } from './local'
+import { loadAttempts, loadCardStates, loadDrafts, loadReviews } from './local'
 
 export async function exportBackup(): Promise<void> {
-  const [cardStates, reviews] = await Promise.all([loadCardStates(), loadReviews()])
+  const [cardStates, reviews, attempts, fermiDrafts, caseDrafts] = await Promise.all([
+    loadCardStates(),
+    loadReviews(),
+    loadAttempts(),
+    loadDrafts('fermi'),
+    loadDrafts('case'),
+  ])
+  const drafts = [...fermiDrafts, ...caseDrafts]
   const now = new Date()
-  const body = JSON.stringify({ app: 'interview-dojo', formatVersion: 1, exportedAt: now.toISOString(), cardStates, reviews }, null, 2)
+  const body = JSON.stringify({ app: 'interview-dojo', formatVersion: 2, exportedAt: now.toISOString(), cardStates, reviews, attempts, drafts }, null, 2)
 
   // ファイルとして保存させる
   const url = URL.createObjectURL(new Blob([body], { type: 'application/json' }))

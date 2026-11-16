@@ -4,9 +4,12 @@ import { ProgressBar } from '../components/ProgressBar'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
 import { exportBackup } from '../db/export'
-import { loadReviews } from '../db/local'
-import type { Review } from '../db/types'
-import { toDateKey } from '../domain/date'
+import { caseById } from '../data/cases'
+import { fermiById } from '../data/fermi'
+import { loadAttempts, loadReviews } from '../db/local'
+import type { Attempt, Review } from '../db/types'
+import { scoreLabel } from '../domain/attempts'
+import { formatDateKey, toDateKey } from '../domain/date'
 import { activity, progressByGroup, summarize } from '../domain/progress'
 import { useCardStates } from '../hooks/useCardStates'
 import { requestSync, signOut, useSync } from '../sync/controller'
@@ -18,6 +21,7 @@ const percent = (n: number, total: number) => (total > 0 ? Math.round((n / total
 export function RecordsScreen() {
   const { states } = useCardStates()
   const [reviews, setReviews] = useState<Review[]>([])
+  const [attempts, setAttempts] = useState<Attempt[]>([]) // 新しい順
   const [exportState, setExportState] = useState<'idle' | 'done' | 'error'>('idle')
 
   const sync = useSync()
@@ -26,6 +30,7 @@ export function RecordsScreen() {
   // 同期が終わるたびに読み直す(他の端末の採点ログが入るため)
   useEffect(() => {
     loadReviews().then(setReviews, (e) => console.error(e))
+    loadAttempts().then(setAttempts, (e) => console.error(e))
   }, [sync.lastSyncedAt])
 
   const sum = summarize(cards, states)
@@ -104,6 +109,52 @@ export function RecordsScreen() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className={s.panel}>
+          <h2 className={s.panelTitle}>道場の記録</h2>
+          <dl className={s.breakdown}>
+            {(
+              [
+                ['フェルミ道場', 'fermi'],
+                ['ケース道場', 'case'],
+              ] as const
+            ).map(([label, kind]) => {
+              const list = attempts.filter((a) => a.kind === kind)
+              return [
+                <div key={`${kind}-n`}>
+                  <dt>{label}</dt>
+                  <dd className="num">{list.length}回</dd>
+                </div>,
+                <div key={`${kind}-q`}>
+                  <dt>解いた問題</dt>
+                  <dd className="num">{new Set(list.map((a) => a.questionId)).size}問</dd>
+                </div>,
+              ]
+            })}
+          </dl>
+          {attempts.length === 0 ? (
+            <p className={s.sub}>フェルミ道場かケース道場で自己採点を保存すると、ここに並びます。</p>
+          ) : (
+            <ul className={s.recent}>
+              {attempts.slice(0, 5).map((a) => {
+                const title = a.kind === 'fermi' ? fermiById.get(a.questionId)?.title : caseById.get(a.questionId)?.text
+                return (
+                  <li key={a.key}>
+                    <Link to={`/${a.kind}/${a.questionId}/review`} className={s.recentRow}>
+                      <span className={s.recentText}>
+                        <span className={s.recentTitle}>{title ?? a.questionId}</span>
+                        <span className={s.sub}>
+                          {a.kind === 'fermi' ? 'フェルミ道場' : 'ケース道場'}・<span className="num">{formatDateKey(toDateKey(new Date(a.createdAt)))}</span>
+                        </span>
+                      </span>
+                      <span className={`num ${s.pct}`}>{scoreLabel(a.selfScore)}</span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
         </section>
 
         <section className={s.panel}>
