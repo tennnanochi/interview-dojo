@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Checklist } from '../components/Checklist'
+import { FeedbackRequest } from '../components/FeedbackRequest'
 import { askedLabel, caseById, caseLevels, caseNo, caseTypeNames, type CaseQuestion } from '../data/cases'
 import { deleteDraft, loadAttempts, loadDraft, saveAttempts } from '../db/local'
 import type { Attempt, SelfScore } from '../db/types'
@@ -8,6 +9,7 @@ import { caseChecks, formatDuration, makeAttempt, parseAnswer, scoreLabel } from
 import type { CaseDraft } from '../domain/caseDraft'
 import { finish } from '../domain/caseTimer'
 import { formatDateKey, toDateKey } from '../domain/date'
+import { caseFeedbackPrompt } from '../domain/feedbackPrompt'
 import { requestSync } from '../sync/controller'
 import s from './exercise.module.css'
 import r from './review.module.css'
@@ -149,6 +151,7 @@ function Review({ question }: { question: CaseQuestion }) {
               </h2>
               <Checklist items={items} checked={marks} onToggle={practicing ? toggle : undefined} />
             </section>
+            <FeedbackRequest build={() => caseFeedbackPrompt(question.type, caseTypeNames[question.type], question.text, written, phases)} />
           </>
         )}
         {error && (

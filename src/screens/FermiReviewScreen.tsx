@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Checklist } from '../components/Checklist'
+import { FeedbackRequest } from '../components/FeedbackRequest'
 import { fermiById, fermiNo, fermiTypes, type FermiQuestion } from '../data/fermi'
 import { deleteDraft, loadAttempts, loadDraft, saveAttempts } from '../db/local'
 import type { Attempt } from '../db/types'
 import { FERMI_CHECKS, elapsedSec, formatDuration, makeAttempt, parseAnswer, scoreLabel } from '../domain/attempts'
 import { formatDateKey, toDateKey } from '../domain/date'
+import { fermiFeedbackPrompt } from '../domain/feedbackPrompt'
 import { STEP_MARK, isBlankFermiDraft, type FermiDraft } from '../domain/fermiDraft'
 import { requestSync } from '../sync/controller'
 import s from './exercise.module.css'
@@ -159,6 +161,7 @@ function Review({ question }: { question: FermiQuestion }) {
             <Checklist items={FERMI_CHECKS} checked={marks} onToggle={loaded.draft ? toggle : undefined} />
           </section>
         )}
+        {mine && <FeedbackRequest build={() => fermiFeedbackPrompt(question.title, mine, chosen ? approachName(chosen) : undefined)} />}
         {error && (
           <p className={r.error} role="alert">
             {error}
