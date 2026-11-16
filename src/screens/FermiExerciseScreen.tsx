@@ -1,6 +1,9 @@
 import { useState, type ReactNode } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Calculator } from '../components/Calculator'
+import { CardReference } from '../components/CardReference'
 import { FermiTypesSheet } from '../components/FermiTypesSheet'
+import { Sheet } from '../components/Sheet'
 import { fermiById, fermiNo, fermiTypes, type FermiQuestion } from '../data/fermi'
 import { FERMI_STEPS, STEP_MARK, approachOptions, emptyFermiDraft, filledSteps, isBlankFermiDraft, type FermiDraft } from '../domain/fermiDraft'
 import { useDraft } from '../hooks/useDraft'
@@ -32,6 +35,7 @@ function Exercise({ question }: { question: FermiQuestion }) {
     isBlank: isBlankFermiDraft,
   })
   const [typesOpen, setTypesOpen] = useState(false)
+  const [tool, setTool] = useState<'numbers' | 'calc' | null>(null) // ④で開く道具
   const [confirmReset, setConfirmReset] = useState(false)
 
   if (!data) return <div className={s.screen} />
@@ -183,6 +187,14 @@ function Exercise({ question }: { question: FermiQuestion }) {
                   placeholder={'例:\n1.2億人 × 60% = 7,200万人\n7,200万人 × 年4個 × 500円 = 1,440億円'}
                 />
               </Field>
+              <div className={s.tools}>
+                <button type="button" className={s.textButton} onClick={() => setTool('numbers')}>
+                  暗記帳の数字を見る
+                </button>
+                <button type="button" className={s.textButton} onClick={() => setTool('calc')}>
+                  電卓を開く
+                </button>
+              </div>
               <Field label="結果">
                 <input className={`${s.input} ${s.mono}`} type="text" value={data.result} onChange={(e) => update({ result: e.target.value })} placeholder="例:約1,400億円" />
               </Field>
@@ -221,6 +233,12 @@ function Exercise({ question }: { question: FermiQuestion }) {
       </div>
 
       <FermiTypesSheet open={typesOpen} onClose={() => setTypesOpen(false)} />
+      <Sheet open={tool === 'numbers'} onClose={() => setTool(null)} title="暗記帳の数字">
+        <CardReference />
+      </Sheet>
+      <Sheet open={tool === 'calc'} onClose={() => setTool(null)} title="電卓">
+        <Calculator />
+      </Sheet>
     </div>
   )
 }

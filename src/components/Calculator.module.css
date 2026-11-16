@@ -1,0 +1,80 @@
+.calc {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.display {
+  flex: none;
+  min-height: 84px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-family: var(--font-num), var(--font-body);
+}
+
+.expr {
+  font-size: 15px;
+  color: var(--text-sub);
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.result {
+  min-height: 30px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.plain {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.key {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-num), var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.key:active {
+  background: var(--accent-soft);
+}
+
+.op {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.clear {
+  color: var(--danger);
+}
+
+.equal {
+  grid-column: 1 / -1;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}

@@ -282,3 +282,10 @@
   opacity: 0.45;
   cursor: default;
 }
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  margin: -8px 0;
+}

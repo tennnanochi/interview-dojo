@@ -11,6 +11,8 @@
   --text-sub: #5d6b64;
   --line: #d3dbd6;
   --danger: #a3322b;
+  --paper: #fbfaf3; /* メモ用紙の地色と罫線(画面モックの色) */
+  --paper-line: #e4e1cf;
   --mastered: #18221d; /* 定着(30日を越えて正解)の印。覚えたの緑と区別する */
 
   --font-body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;

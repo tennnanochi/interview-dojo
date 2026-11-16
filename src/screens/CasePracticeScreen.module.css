@@ -1,0 +1,258 @@
+.grow {
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag,
+.tagMain {
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.tagMain {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.questionText {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* はじめる前:時間配分 */
+.phaseRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--tap) 56px var(--tap);
+  gap: 8px;
+  align-items: center;
+}
+
+.phaseName {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.phaseMin {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.stepper {
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.stepper:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.plain {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 練習中:タイマー */
+.pause {
+  width: var(--tap);
+  height: var(--tap);
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--text-sub);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.clock {
+  flex: none;
+  min-width: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.15;
+}
+
+.phaseNow {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.time {
+  font-family: var(--font-num);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.late {
+  color: var(--danger);
+}
+
+/* 区間ごとに分かれた進捗バー */
+.bars {
+  flex: none;
+  padding: 0 20px 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.bar {
+  flex-basis: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.barTrack {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.barLabel {
+  font-size: 11px;
+  color: var(--text-sub);
+  text-align: center;
+}
+
+.barNow {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.work {
+  flex: 1;
+  min-height: 0;
+  padding: 4px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.questionCard {
+  flex: none;
+  max-height: 34%;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tabs {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  min-height: var(--tap);
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabOn {
+  border-bottom-color: var(--accent);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.pane {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll {
+  overflow-y: auto;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* メモ用紙(罫線入り) */
+.paper {
+  flex: 1;
+  min-height: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+  background: repeating-linear-gradient(var(--paper), var(--paper) 27px, var(--paper-line) 27px, var(--paper-line) 28px);
+  background-attachment: local;
+  color: var(--text);
+  font-family: var(--font-num), var(--font-body);
+  font-size: 16px;
+  line-height: 28px;
+  resize: none;
+}
+
+.answer {
+  flex: 1;
+  min-height: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.7;
+  resize: none;
+}
+
+/* 発表の区間では、回答を大きく出す */
+.big {
+  font-size: 19px;
+}
+
+.paper:focus,
+.answer:focus {
+  outline: none;
+  border-color: var(--accent);
+}
