@@ -130,3 +130,32 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+a.secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.account {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.plain {
+  min-height: var(--tap);
+  border: none;
+  background: none;
+  color: var(--text-sub);
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}

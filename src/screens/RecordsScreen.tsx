@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ProgressBar } from '../components/ProgressBar'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
@@ -8,19 +9,24 @@ import type { Review } from '../db/types'
 import { toDateKey } from '../domain/date'
 import { activity, progressByGroup, summarize } from '../domain/progress'
 import { useCardStates } from '../hooks/useCardStates'
+import { requestSync, signOut, useSync } from '../sync/controller'
 import s from './RecordsScreen.module.css'
 
 const percent = (n: number, total: number) => (total > 0 ? Math.round((n / total) * 100) : 0)
 
-// 記録:連続学習日数、覚えた数、カテゴリ別の制覇率、データの書き出し
+// 記録:連続学習日数、覚えた数、カテゴリ別の制覇率、アカウントと同期、データの書き出し
 export function RecordsScreen() {
   const { states } = useCardStates()
   const [reviews, setReviews] = useState<Review[]>([])
   const [exportState, setExportState] = useState<'idle' | 'done' | 'error'>('idle')
 
+  const sync = useSync()
+  const pending = [...states.values()].filter((st) => st.dirty).length
+
+  // 同期が終わるたびに読み直す(他の端末の採点ログが入るため)
   useEffect(() => {
     loadReviews().then(setReviews, (e) => console.error(e))
-  }, [])
+  }, [sync.lastSyncedAt])
 
   const sum = summarize(cards, states)
   const act = activity(reviews, toDateKey(new Date()))
@@ -98,6 +104,42 @@ export function RecordsScreen() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className={s.panel}>
+          <h2 className={s.panelTitle}>アカウントと同期</h2>
+          {!sync.enabled ? (
+            <p className={s.sub}>同期は未設定です(Supabaseの接続値がありません)。学習履歴はこの端末にだけ保存されます。</p>
+          ) : !sync.user ? (
+            <>
+              <p className={s.sub}>ログインすると、学習履歴がスマホとPCで同じになります。今はこの端末にだけ保存されています。</p>
+              <Link to="/login" className={s.secondary}>
+                ログインする
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className={s.account}>{sync.user.email}</p>
+              <p className={s.sub} role="status">
+                {!sync.online
+                  ? 'オフラインです。つながったら自動で同期します。'
+                  : sync.syncing
+                    ? '同期中です。'
+                    : sync.error
+                      ? sync.error
+                      : sync.lastSyncedAt
+                        ? `最後の同期 ${new Date(sync.lastSyncedAt).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}`
+                        : 'まだ同期していません。'}
+                {pending > 0 && ` 未送信 ${pending}件。`}
+              </p>
+              <button type="button" className={s.secondary} onClick={() => requestSync()} disabled={sync.syncing || !sync.online}>
+                今すぐ同期
+              </button>
+              <button type="button" className={s.plain} onClick={() => void signOut()}>
+                ログアウト
+              </button>
+            </>
+          )}
         </section>
 
         <section className={s.panel}>

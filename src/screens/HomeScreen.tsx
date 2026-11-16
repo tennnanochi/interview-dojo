@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { SyncBadge } from '../components/SyncBadge'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
 import { ProgressBar } from '../components/ProgressBar'
@@ -15,7 +16,7 @@ export function HomeScreen() {
 
   return (
     <>
-      <ScreenHeader eyebrow="おかえりなさい" title="面接トレーニング" />
+      <ScreenHeader eyebrow="おかえりなさい" title="面接トレーニング" right={<SyncBadge />} />
       <div className={s.body}>
         <section className={s.hero}>
           <span className={s.heroLabel}>今日の復習</span>

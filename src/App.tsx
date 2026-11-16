@@ -4,6 +4,7 @@ import { HomeScreen } from './screens/HomeScreen'
 import { CardListScreen } from './screens/CardListScreen'
 import { RecordsScreen } from './screens/RecordsScreen'
 import { StudyScreen } from './screens/StudyScreen'
+import { LoginScreen } from './screens/LoginScreen'
 import { ComingSoonScreen } from './screens/ComingSoonScreen'
 
 export function App() {
@@ -25,6 +26,7 @@ export function App() {
       </Route>
       {/* 出題中はタブを出さず、カードに集中する */}
       <Route path="/cards/study" element={<StudyScreen />} />
+      <Route path="/login" element={<LoginScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

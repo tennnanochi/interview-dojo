@@ -9,6 +9,9 @@ import '@fontsource/jetbrains-mono/latin-600.css'
 import './styles/tokens.css'
 import './styles/global.css'
 import { App } from './App'
+import { startSync } from './sync/controller'
+
+startSync()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -21,4 +21,4 @@
 npm install
 npm run dev
 ```
-http://localhost:5173 を開く。Supabaseの接続値は `.env.example` を `.env.local` にコピーして入れる(ログインと同期を作るまでは不要)。
+http://localhost:5173 を開く。Supabaseの接続値は `.env.example` を `.env.local` にコピーして入れる。入れなくても端末内だけで動く(ログインと同期だけ使えない)。値を入れたら開発サーバーを起動し直す。
