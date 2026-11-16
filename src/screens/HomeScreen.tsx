@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { SyncBadge } from '../components/SyncBadge'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
+import { caseQuestions } from '../data/cases'
 import { fermiById, fermiQuestions, type FermiQuestion } from '../data/fermi'
 import { loadDrafts } from '../db/local'
 import { ProgressBar } from '../components/ProgressBar'
@@ -75,7 +76,7 @@ export function HomeScreen() {
         <Link to="/case" className={`${s.panel} ${s.link}`}>
           <div className={s.panelHead}>
             <span className={s.panelTitle}>ケース道場</span>
-            <span className={s.sub}>準備中</span>
+            <span className={`${s.sub} num`}>{caseQuestions.length}問</span>
           </div>
           <span className={s.sub}>タイマーとメモで本番形式の練習</span>
         </Link>

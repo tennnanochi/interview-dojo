@@ -1,0 +1,46 @@
+/* 絞り込みの区切り(種類|難易度) */
+.divider {
+  flex: none;
+  width: 1px;
+  margin: 8px 2px;
+  background: var(--line);
+}
+
+.company {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.pattern {
+  flex: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.patternName {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.patternNote {
+  margin: 0;
+  font-size: 14px;
+}
+
+.patternCompanies {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-sub);
+}
