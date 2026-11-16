@@ -1060,6 +1060,903 @@
       "level": 3,
       "industry": "IT",
       "text": "日本の企業研修の市場規模を推定し、生成AI研修事業の戦略を考えてください"
+    },
+    {
+      "id": "q151",
+      "type": "fermi",
+      "level": 1,
+      "industry": "小売",
+      "text": "日本にあるコンビニエンスストアの店舗数"
+    },
+    {
+      "id": "q152",
+      "type": "fermi",
+      "level": 2,
+      "industry": "消費財",
+      "text": "日本国内で1年間に消費されるペットボトルの本数"
+    },
+    {
+      "id": "q153",
+      "type": "fermi",
+      "level": 1,
+      "industry": "小売",
+      "text": "日本にある自動販売機の総数"
+    },
+    {
+      "id": "q154",
+      "type": "fermi",
+      "level": 1,
+      "industry": "生活サービス",
+      "text": "東京都内にある美容室の数"
+    },
+    {
+      "id": "q155",
+      "type": "fermi",
+      "level": 2,
+      "industry": "消費財",
+      "text": "日本で1日に消費される割り箸の本数"
+    },
+    {
+      "id": "q156",
+      "type": "fermi",
+      "level": 1,
+      "industry": "インフラ",
+      "text": "日本国内にある郵便ポストの数"
+    },
+    {
+      "id": "q157",
+      "type": "fermi",
+      "level": 2,
+      "industry": "食品",
+      "text": "日本の年間ビール消費量(リットル)"
+    },
+    {
+      "id": "q158",
+      "type": "fermi",
+      "level": 2,
+      "industry": "インフラ",
+      "text": "日本国内のマンホールの数"
+    },
+    {
+      "id": "q159",
+      "type": "fermi",
+      "level": 1,
+      "industry": "交通",
+      "text": "日本国内を走っているタクシーの台数"
+    },
+    {
+      "id": "q160",
+      "type": "fermi",
+      "level": 2,
+      "industry": "交通",
+      "text": "東京駅から新大阪駅まで、1日に運ばれる乗客数"
+    },
+    {
+      "id": "q161",
+      "type": "fermi",
+      "level": 1,
+      "industry": "エネルギー",
+      "text": "日本国内にあるガソリンスタンドの数"
+    },
+    {
+      "id": "q162",
+      "type": "fermi",
+      "level": 2,
+      "industry": "交通",
+      "text": "日本国内のカーシェアリング車両の台数"
+    },
+    {
+      "id": "q163",
+      "type": "fermi",
+      "level": 3,
+      "industry": "公共",
+      "text": "皇居の敷地内の芝生の本数"
+    },
+    {
+      "id": "q164",
+      "type": "fermi",
+      "level": 2,
+      "industry": "インフラ",
+      "text": "日本国内のトンネルの総数"
+    },
+    {
+      "id": "q165",
+      "type": "case",
+      "level": 2,
+      "industry": "交通",
+      "text": "ある地方鉄道会社の赤字を黒字化してください"
+    },
+    {
+      "id": "q166",
+      "type": "case",
+      "level": 2,
+      "industry": "ヘルスケア",
+      "text": "大手フィットネスクラブの会員数を3年で1.5倍にしてください"
+    },
+    {
+      "id": "q167",
+      "type": "case",
+      "level": 2,
+      "industry": "食品",
+      "text": "老舗和菓子メーカーの売上を2倍にする戦略を立案してください"
+    },
+    {
+      "id": "q168",
+      "type": "case",
+      "level": 2,
+      "industry": "観光",
+      "text": "都心にあるビジネスホテルの稼働率を向上させる施策は"
+    },
+    {
+      "id": "q169",
+      "type": "case",
+      "level": 2,
+      "industry": "外食",
+      "text": "全国チェーンのカフェの客単価を上げる方法は"
+    },
+    {
+      "id": "q170",
+      "type": "case",
+      "level": 2,
+      "industry": "メディア",
+      "text": "大手新聞社の購読者数減少を食い止め、収益を多角化してください"
+    },
+    {
+      "id": "q171",
+      "type": "case",
+      "level": 2,
+      "industry": "スポーツ",
+      "text": "プロ野球球団の年間チケット販売数を増やすには"
+    },
+    {
+      "id": "q172",
+      "type": "case",
+      "level": 2,
+      "industry": "レジャー",
+      "text": "水族館の来場者数をV字回復させる施策は"
+    },
+    {
+      "id": "q173",
+      "type": "case",
+      "level": 2,
+      "industry": "交通",
+      "text": "タクシー会社の売上を最大化する施策は"
+    },
+    {
+      "id": "q174",
+      "type": "case",
+      "level": 3,
+      "industry": "農業",
+      "text": "大手電機メーカーが「農業ビジネス」に参入すべきか。参入するならどのような戦略か"
+    },
+    {
+      "id": "q175",
+      "type": "case",
+      "level": 2,
+      "industry": "生活サービス",
+      "text": "Amazonが日本で「実店舗のクリーニング業」を始めるとしたら、どのようなビジネスモデルにするか"
+    },
+    {
+      "id": "q176",
+      "type": "case",
+      "level": 3,
+      "industry": "自動車",
+      "text": "大手自動車メーカーが「空飛ぶクルマ」事業に参入する際のロードマップを描いてください"
+    },
+    {
+      "id": "q177",
+      "type": "case",
+      "level": 2,
+      "industry": "介護",
+      "text": "IT企業が「高齢者向け見守りサービス」を開始する際の戦略は"
+    },
+    {
+      "id": "q178",
+      "type": "case",
+      "level": 3,
+      "industry": "小売",
+      "text": "日本のコンビニがインド市場に進出する際の戦略は"
+    },
+    {
+      "id": "q179",
+      "type": "case",
+      "level": 2,
+      "industry": "食品",
+      "text": "大手飲料メーカーがサブスクリプション型ビジネスを始めるなら何を売るか"
+    },
+    {
+      "id": "q180",
+      "type": "case",
+      "level": 3,
+      "industry": "教育",
+      "text": "教育系スタートアップがメタバース領域で新規事業を立ち上げるなら"
+    },
+    {
+      "id": "q181",
+      "type": "case",
+      "level": 2,
+      "industry": "ヘルスケア",
+      "text": "製薬会社が「未病・予防」領域でビジネスを作るなら"
+    },
+    {
+      "id": "q182",
+      "type": "case",
+      "level": 3,
+      "industry": "産業",
+      "text": "総合商社が「宇宙ビジネス」に投資すべき領域はどこか"
+    },
+    {
+      "id": "q183",
+      "type": "case",
+      "level": 2,
+      "industry": "消費財",
+      "text": "化粧品メーカーが男性向け市場でシェアを獲得するには"
+    },
+    {
+      "id": "q184",
+      "type": "case",
+      "level": 2,
+      "industry": "産業",
+      "text": "伝統的な製造業の工場における生産効率を、デジタル技術を用いて20%向上させてください"
+    },
+    {
+      "id": "q185",
+      "type": "case",
+      "level": 2,
+      "industry": "物流",
+      "text": "大手物流会社の配送ルートをAIで最適化し、コストを削減する提案をしてください"
+    },
+    {
+      "id": "q186",
+      "type": "case",
+      "level": 2,
+      "industry": "公共",
+      "text": "地方自治体がDXを推進し、住民サービスの満足度を上げる施策は"
+    },
+    {
+      "id": "q187",
+      "type": "case",
+      "level": 3,
+      "industry": "アパレル",
+      "text": "アパレル企業のサプライチェーンにおける廃棄ロスをデータ活用でゼロにするには"
+    },
+    {
+      "id": "q188",
+      "type": "case",
+      "level": 2,
+      "industry": "産業",
+      "text": "建設現場における労働災害をIoT技術で減らすためのソリューションを提案してください"
+    },
+    {
+      "id": "q189",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "紙文化が残る官公庁の業務プロセスを完全ペーパーレス化するロードマップは"
+    },
+    {
+      "id": "q190",
+      "type": "case",
+      "level": 2,
+      "industry": "医療",
+      "text": "総合病院の待ち時間をアプリやシステム導入で解消する施策は"
+    },
+    {
+      "id": "q191",
+      "type": "case",
+      "level": 3,
+      "industry": "エネルギー",
+      "text": "電力会社が保有するデータを活用して、新しい外販ビジネスを作ってください"
+    },
+    {
+      "id": "q192",
+      "type": "case",
+      "level": 2,
+      "industry": "小売",
+      "text": "中堅スーパーマーケットが顧客データを活用して売上を上げる方法は"
+    },
+    {
+      "id": "q193",
+      "type": "case",
+      "level": 2,
+      "industry": "介護",
+      "text": "人手不足に悩む介護施設にITを導入し、職員の負担を減らす具体策は"
+    },
+    {
+      "id": "q194",
+      "type": "case",
+      "level": 3,
+      "industry": "農業",
+      "text": "日本の食料自給率を10年で50%まで引き上げるための提言をしてください"
+    },
+    {
+      "id": "q195",
+      "type": "case",
+      "level": 3,
+      "industry": "交通",
+      "text": "東京の満員電車を解消するための抜本的な解決策は"
+    },
+    {
+      "id": "q196",
+      "type": "case",
+      "level": 3,
+      "industry": "交通",
+      "text": "限界集落の移動手段を確保するためのサステナブルな交通システムを考案してください"
+    },
+    {
+      "id": "q197",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "日本のプラスチックごみ排出量を半減させるためのビジネススキームは"
+    },
+    {
+      "id": "q198",
+      "type": "case",
+      "level": 3,
+      "industry": "不動産",
+      "text": "空き家問題を解決し、地域経済を活性化させるプランは"
+    },
+    {
+      "id": "q199",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "台風や洪水被害を最小限にするための「スマート防災都市」の構想を提案してください"
+    },
+    {
+      "id": "q200",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "若者の投票率を次の選挙で10%上げるための施策は"
+    },
+    {
+      "id": "q201",
+      "type": "case",
+      "level": 3,
+      "industry": "観光",
+      "text": "日本へのインバウンド観光客(富裕層)を地方に誘致する戦略は"
+    },
+    {
+      "id": "q202",
+      "type": "case",
+      "level": 3,
+      "industry": "教育",
+      "text": "保育士不足を解消するための構造的な改革案を提示してください"
+    },
+    {
+      "id": "q203",
+      "type": "case",
+      "level": 3,
+      "industry": "インフラ",
+      "text": "上下水道の維持管理コストを削減しつつ、品質を維持する方法は"
+    },
+    {
+      "id": "q204",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "「良い会社」を定義し、その指標をクライアント企業に導入するには"
+    },
+    {
+      "id": "q205",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "日本企業において「イノベーション」が起きにくい原因を特定し、解決策を提示してください"
+    },
+    {
+      "id": "q206",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "リモートワークと出社を組み合わせた、生産性が最も高くなる働き方を設計してください"
+    },
+    {
+      "id": "q207",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "クライアント企業の社員エンゲージメントを高めるための人事制度改革案は"
+    },
+    {
+      "id": "q208",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "大手企業における「縦割り組織」の弊害を解消するプロジェクトを主導してください"
+    },
+    {
+      "id": "q209",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "2030年の日本で最も成長している産業は何か。またその理由は"
+    },
+    {
+      "id": "q210",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "もしあなたが総理大臣なら、最初に着手する政策は何か"
+    },
+    {
+      "id": "q211",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "企業のSDGsへの取り組みを、実際の利益に結びつけるためのフレームワークは"
+    },
+    {
+      "id": "q212",
+      "type": "case",
+      "level": 3,
+      "industry": "組織",
+      "text": "ある企業のM&A後のPMI(統合プロセス)を成功させるための重要成功要因(KSF)は"
+    },
+    {
+      "id": "q213",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "このコンサルティング・ファーム自体の売上を10年で倍増させる戦略を提案してください"
+    },
+    {
+      "id": "q214",
+      "type": "combo",
+      "level": 2,
+      "industry": "食品",
+      "text": "家庭用カレールウの市場規模と売上向上施策",
+      "company": "BCG",
+      "askedAt": "2026-04"
+    },
+    {
+      "id": "q215",
+      "type": "combo",
+      "level": 3,
+      "industry": "不動産",
+      "text": "住宅用木造建材の年間消費量と建築業者の効率化",
+      "company": "BCG",
+      "askedAt": "2025-12"
+    },
+    {
+      "id": "q216",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "5社の財務資料を見て経営戦略をプレゼン",
+      "company": "BCG",
+      "askedAt": "2017-06"
+    },
+    {
+      "id": "q217",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "KPI資料から売上・利益改善策",
+      "company": "BCG",
+      "askedAt": "2017-06"
+    },
+    {
+      "id": "q218",
+      "type": "combo",
+      "level": 2,
+      "industry": "生活サービス",
+      "text": "引越しサービスの市場規模と建設会社の売上改善",
+      "company": "BCG",
+      "askedAt": "2019-01"
+    },
+    {
+      "id": "q219",
+      "type": "combo",
+      "level": 3,
+      "industry": "不動産",
+      "text": "不動産成約高の推定と低金利下のファンド投資戦略",
+      "company": "BCG",
+      "askedAt": "2019-01"
+    },
+    {
+      "id": "q220",
+      "type": "fermi",
+      "level": 2,
+      "industry": "自動車",
+      "text": "EVの市場規模と動向",
+      "company": "A.T.カーニー",
+      "askedAt": "2026-09"
+    },
+    {
+      "id": "q221",
+      "type": "combo",
+      "level": 2,
+      "industry": "ヘルスケア",
+      "text": "健康食品の市場規模とメーカー売上向上(思考時間5分)",
+      "company": "A.T.カーニー",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q222",
+      "type": "combo",
+      "level": 3,
+      "industry": "IT",
+      "text": "テクノロジーの現在・将来市場と成長ドライバー",
+      "company": "A.T.カーニー",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q223",
+      "type": "combo",
+      "level": 2,
+      "industry": "産業",
+      "text": "業務用ロボットと文房具の市場規模・売上向上",
+      "company": "A.T.カーニー",
+      "askedAt": "2026-05"
+    },
+    {
+      "id": "q224",
+      "type": "combo",
+      "level": 2,
+      "industry": "消費財",
+      "text": "ランドセル市場→地方鞄メーカーの売上推計と成長戦略",
+      "company": "A.T.カーニー",
+      "askedAt": "2024-11"
+    },
+    {
+      "id": "q225",
+      "type": "combo",
+      "level": 2,
+      "industry": "ガジェット",
+      "text": "iPhone市場と、コンサル市場を拡大する方法",
+      "company": "A.T.カーニー",
+      "askedAt": "2024-08"
+    },
+    {
+      "id": "q226",
+      "type": "case",
+      "level": 2,
+      "industry": "自動車",
+      "text": "ある国での自動車メーカーの売上向上施策(26/03にも出題)",
+      "company": "ローランド・ベルガー",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q227",
+      "type": "case",
+      "level": 2,
+      "industry": "小売",
+      "text": "コンビニのビジネスモデル分析",
+      "company": "ローランド・ベルガー",
+      "askedAt": "2026-03"
+    },
+    {
+      "id": "q228",
+      "type": "case",
+      "level": 2,
+      "industry": "小売",
+      "text": "花屋の売上・コストから利益向上策を計算",
+      "company": "ローランド・ベルガー",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q229",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "自社の事業成長戦略をプレゼン",
+      "company": "ローランド・ベルガー",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q230",
+      "type": "combo",
+      "level": 3,
+      "industry": "人材",
+      "text": "全世界の1日の交通事故数・日本の年間退職者数、派遣会社のV字回復策",
+      "company": "ローランド・ベルガー",
+      "askedAt": "2024-04"
+    },
+    {
+      "id": "q231",
+      "type": "case",
+      "level": 3,
+      "industry": "医療",
+      "text": "新規事業企画の検討ステップと、地方医療の医療費削減",
+      "company": "ADL",
+      "askedAt": "2024-06"
+    },
+    {
+      "id": "q232",
+      "type": "case",
+      "level": 2,
+      "industry": "外食",
+      "text": "ラーメン屋の売上向上",
+      "company": "ADL",
+      "askedAt": "2024-06"
+    },
+    {
+      "id": "q233",
+      "type": "combo",
+      "level": 3,
+      "industry": "B2B",
+      "text": "コンサル市場の将来成長率とAIの影響",
+      "company": "ADL",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q234",
+      "type": "case",
+      "level": 2,
+      "industry": "レジャー",
+      "text": "ある趣味の売上向上をディスカッション形式で",
+      "company": "ADL",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q235",
+      "type": "case",
+      "level": 2,
+      "industry": "外食",
+      "text": "シェアリング・飲食のケース",
+      "company": "ADL",
+      "askedAt": "2025-08"
+    },
+    {
+      "id": "q236",
+      "type": "case",
+      "level": 2,
+      "industry": "スポーツ",
+      "text": "J2クラブの売上向上",
+      "company": "DI",
+      "askedAt": "2026-05"
+    },
+    {
+      "id": "q237",
+      "type": "fermi",
+      "level": 2,
+      "industry": "ガジェット",
+      "text": "モバイルバッテリーの市場規模",
+      "company": "DI",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q238",
+      "type": "fermi",
+      "level": 2,
+      "industry": "交通",
+      "text": "東京メトロの売上規模",
+      "company": "DI",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q239",
+      "type": "combo",
+      "level": 2,
+      "industry": "食品",
+      "text": "ジンの市場規模と拡大策",
+      "company": "DI",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q240",
+      "type": "combo",
+      "level": 2,
+      "industry": "小売",
+      "text": "コンビニ売上推定と向上策",
+      "company": "DI",
+      "askedAt": "2026-03"
+    },
+    {
+      "id": "q241",
+      "type": "case",
+      "level": 2,
+      "industry": "B2B",
+      "text": "経歴に関連する業界の課題と解決",
+      "company": "DI",
+      "askedAt": "2026-05"
+    },
+    {
+      "id": "q242",
+      "type": "case",
+      "level": 2,
+      "industry": "小売",
+      "text": "食品スーパーの売上1.5倍策",
+      "company": "フロンティア",
+      "askedAt": "2026-01"
+    },
+    {
+      "id": "q243",
+      "type": "case",
+      "level": 2,
+      "industry": "外食",
+      "text": "個人飲食店の利益低下要因",
+      "company": "フロンティア",
+      "askedAt": "2026-01"
+    },
+    {
+      "id": "q244",
+      "type": "fermi",
+      "level": 2,
+      "industry": "スポーツ",
+      "text": "テニスコートの数のフェルミ推定・食パン屋の市場規模",
+      "company": "フロンティア",
+      "askedAt": "2024-02"
+    },
+    {
+      "id": "q245",
+      "type": "combo",
+      "level": 2,
+      "industry": "生活サービス",
+      "text": "美容院の市場規模と売上向上",
+      "company": "IGPI",
+      "askedAt": "2024-08"
+    },
+    {
+      "id": "q246",
+      "type": "case",
+      "level": 3,
+      "industry": "公共",
+      "text": "日本社会の課題と解決策",
+      "company": "IGPI",
+      "askedAt": "2026-02"
+    },
+    {
+      "id": "q247",
+      "type": "case",
+      "level": 2,
+      "industry": "生活サービス",
+      "text": "最近気になるサービスの売上向上",
+      "company": "IGPI",
+      "askedAt": "2026-01"
+    },
+    {
+      "id": "q248",
+      "type": "case",
+      "level": 2,
+      "industry": "小売",
+      "text": "文房具屋の売上向上施策",
+      "company": "リブ",
+      "askedAt": "2024-08"
+    },
+    {
+      "id": "q249",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "研究者の技術を産業化する伴走支援で、最初の2〜3ヶ月で何をするか",
+      "company": "ReGACY",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q250",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "公表案件から付加価値を考察するプレゼン",
+      "company": "ReGACY",
+      "askedAt": "2026-06"
+    },
+    {
+      "id": "q251",
+      "type": "case",
+      "level": 2,
+      "industry": "観光",
+      "text": "地方の課題を観光で解決するアイデア",
+      "company": "イグニション・ポイント",
+      "askedAt": "2024-08"
+    },
+    {
+      "id": "q252",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "業界全体の課題をコンサルとして1社にどう提言するか",
+      "company": "Quest",
+      "askedAt": "2024-12"
+    },
+    {
+      "id": "q253",
+      "type": "case",
+      "level": 3,
+      "industry": "医療",
+      "text": "難病の治療でボトルネックを列挙",
+      "company": "エムスリー",
+      "askedAt": "2026-07"
+    },
+    {
+      "id": "q254",
+      "type": "case",
+      "level": 3,
+      "industry": "医療",
+      "text": "場合の数・確率を医療と組み合わせた対話",
+      "company": "エムスリー",
+      "askedAt": "2026-07"
+    },
+    {
+      "id": "q255",
+      "type": "fermi",
+      "level": 1,
+      "industry": "エンタメ",
+      "text": "読んだ本の冊数推定",
+      "company": "エムスリー",
+      "askedAt": "2026-07"
+    },
+    {
+      "id": "q256",
+      "type": "case",
+      "level": 3,
+      "industry": "IT",
+      "text": "Excel関数を使ったマーケティング検証ケース",
+      "company": "エムスリー",
+      "askedAt": "2023-06"
+    },
+    {
+      "id": "q257",
+      "type": "case",
+      "level": 2,
+      "industry": "B2B",
+      "text": "ある会社の新規事業を考案",
+      "company": "フォーティエンス",
+      "askedAt": "2025-04"
+    },
+    {
+      "id": "q258",
+      "type": "case",
+      "level": 3,
+      "industry": "B2B",
+      "text": "事前課題をスライド・レポートで発表",
+      "company": "フォーティエンス",
+      "askedAt": "2024-02"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "p1",
+      "name": "市場規模推定→売上向上施策",
+      "companies": [
+        "BCG",
+        "A.T.カーニー",
+        "DI",
+        "ADL",
+        "IGPI"
+      ],
+      "note": "最も頻度が高い型"
+    },
+    {
+      "id": "p2",
+      "name": "資料提示→経営戦略・利益改善のプレゼン",
+      "companies": [
+        "BCG",
+        "ローランド・ベルガー"
+      ],
+      "note": "計算を伴うので、データ読解力が問われる"
+    },
+    {
+      "id": "p3",
+      "name": "フェルミ推定単体",
+      "companies": [
+        "フロンティア",
+        "ローランド・ベルガー"
+      ],
+      "note": "「テニスコートの数」「交通事故の数」のような大きな数の推定"
+    },
+    {
+      "id": "p4",
+      "name": "新規事業・課題解決アイデア",
+      "companies": [
+        "イグニション・ポイント",
+        "ReGACY",
+        "フォーティエンス",
+        "ADL"
+      ],
+      "note": "自分の興味領域から出題される例もある"
+    },
+    {
+      "id": "p5",
+      "name": "対話型クイズ",
+      "companies": [
+        "エムスリー"
+      ],
+      "note": "答えを言い切るより、対話で修正しながら進める姿勢が見られる"
     }
   ]
 }
