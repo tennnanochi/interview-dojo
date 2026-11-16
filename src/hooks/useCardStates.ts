@@ -78,6 +78,16 @@ export function gradeCard(card: Card, grade: Grade, now = new Date()): CardState
   return next
 }
 
+// 旧暗記帳から引き継いだカードをまとめて入れる
+export async function addStates(created: CardState[]): Promise<void> {
+  if (created.length === 0) return
+  const states = new Map(snapshot.states)
+  for (const st of created) states.set(st.cardId, st)
+  set({ states })
+  await saveCardStates(created)
+  changeListeners.forEach((l) => l())
+}
+
 // ---- ここから下は同期処理が使う ----
 
 export function getStates(): ReadonlyMap<string, CardState> {

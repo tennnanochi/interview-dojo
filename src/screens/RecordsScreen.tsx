@@ -152,6 +152,10 @@ export function RecordsScreen() {
             {exportState === 'done' && '書き出しました。ダウンロードしたファイルを確認してください。'}
             {exportState === 'error' && '書き出せませんでした。もう一度試してください。'}
           </p>
+          <p className={s.sub}>旧暗記帳アプリの「覚えた」を、このアプリに引き継げます。</p>
+          <Link to="/records/import" className={s.secondary}>
+            旧暗記帳から引き継ぐ
+          </Link>
         </section>
       </div>
     </>
