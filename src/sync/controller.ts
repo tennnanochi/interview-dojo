@@ -1,6 +1,6 @@
 // ログイン状態と同期のきっかけを管理する。画面は useSync() で状態を読む
 import { useSyncExternalStore } from 'react'
-import { clearAll, getMeta, setMeta } from '../db/local'
+import { clearAll, getMeta, loadUnsyncedAttempts, loadUnsyncedReviews, setMeta } from '../db/local'
 import { getStates, onLocalChange, reloadStore, whenReady } from '../hooks/useCardStates'
 import { syncOnce } from './engine'
 import { supabaseRemote } from './remote'
@@ -54,6 +54,12 @@ export function requestSync(delayMs = 0) {
   timer = setTimeout(() => void run(), delayMs)
 }
 
+// まだSupabaseに送っていないものがあるか(カードの状態、採点ログ、道場の記録)
+async function hasUnsent(): Promise<boolean> {
+  if ([...getStates().values()].some((s) => s.dirty)) return true
+  return (await loadUnsyncedReviews()).length > 0 || (await loadUnsyncedAttempts()).length > 0
+}
+
 async function run() {
   if (!supabase || !state.user || !navigator.onLine) return
   if (running) {
@@ -64,9 +70,12 @@ async function run() {
   set({ syncing: true })
   try {
     const remote = supabaseRemote(supabase, state.user.id)
-    await syncOnce(remote)
-    // 取り込み中に採点された分や、versionが上がって復習に戻した分が残っていれば、もう1回だけ送る
-    if ([...getStates().values()].some((s) => s.dirty)) await syncOnce(remote)
+    // 同期の最中に採点された分や、途中で頼まれた分が残っていれば、送り切るまで続ける(最大3回)
+    for (let pass = 0; pass < 3; pass++) {
+      again = false
+      await syncOnce(remote)
+      if (!again && !(await hasUnsent())) break
+    }
     set({ error: null, lastSyncedAt: new Date().toISOString() })
   } catch (e) {
     console.error(e)
