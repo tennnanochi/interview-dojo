@@ -90,7 +90,7 @@ MVPは暗記帳と同期。フェルミ道場とケース道場は、既存ア�
 
 | ファイル | 主な項目 | 件数 |
 |---|---|---|
-| cards.json(暗記帳) | id、legacyId、version、group、section、item(項目)、value(暗記値)、note(実数・メモ)、source(video/added/confirmed)、updated | 273件 |
+| cards.json(暗記帳) | id、legacyId、version、group、section、item(項目)、value(暗記値)、note(実数・メモ)、source(video/added/confirmed)、updated | 277件 |
 | fermi.json(フェルミ道場) | types(試算方法12種の説明)、questions(id、title、genre、want/who/stockFlow、scope、approaches、adopted、why、breakdown[3段]、segment、check、bookNo、origin) | 186問 |
 | cases.json(ケース道場) | levels、typeNames、patterns(ケースの5つの型)、questions(id、type=fermi/case/combo、level、industry、text。会社別の過去問には company と askedAt=出題年月 も持つ) | 258問 |
 

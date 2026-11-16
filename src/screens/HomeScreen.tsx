@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { SyncBadge } from '../components/SyncBadge'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
+import { fermiQuestions } from '../data/fermi'
 import { ProgressBar } from '../components/ProgressBar'
 import { toDateKey } from '../domain/date'
 import { countDue, studyPath } from '../domain/session'
@@ -59,7 +60,7 @@ export function HomeScreen() {
         <Link to="/fermi" className={`${s.panel} ${s.link}`}>
           <div className={s.panelHead}>
             <span className={s.panelTitle}>フェルミ道場</span>
-            <span className={s.sub}>準備中</span>
+            <span className={`${s.sub} num`}>{fermiQuestions.length}問</span>
           </div>
           <span className={s.sub}>5ステップの型で1問ずつ解く</span>
         </Link>

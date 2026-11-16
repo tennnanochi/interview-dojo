@@ -1,0 +1,172 @@
+/* 問題を探す画面(フェルミ道場・ケース道場)の共通の見た目:上に検索と絞り込み、下の一覧だけスクロール */
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tools {
+  padding: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search {
+  margin: 0 20px;
+  min-height: var(--tap);
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text-sub);
+}
+
+.search:focus-within {
+  border-color: var(--accent);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px; /* 16px未満だとスマホで入力時に画面が拡大される */
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* 絞り込みは横にスクロールする1行(数が多くても場所を取らない) */
+.chips {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  min-height: var(--tap);
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.chip :global(.num) {
+  opacity: 0.7;
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.count {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.empty {
+  margin: 32px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.items {
+  flex: none;
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.items li + li {
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  min-height: 60px;
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 16px;
+  gap: 10px;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.no {
+  font-family: var(--font-num);
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itemTitle {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.itemMeta {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.chevron {
+  color: var(--text-sub);
+}
+
+.linkButton {
+  min-height: var(--tap);
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}

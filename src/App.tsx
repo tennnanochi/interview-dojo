@@ -4,6 +4,8 @@ import { HomeScreen } from './screens/HomeScreen'
 import { CardListScreen } from './screens/CardListScreen'
 import { RecordsScreen } from './screens/RecordsScreen'
 import { StudyScreen } from './screens/StudyScreen'
+import { FermiExerciseScreen } from './screens/FermiExerciseScreen'
+import { FermiListScreen } from './screens/FermiListScreen'
 import { ImportScreen } from './screens/ImportScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { ComingSoonScreen } from './screens/ComingSoonScreen'
@@ -15,10 +17,7 @@ export function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/cards" element={<CardListScreen />} />
-        <Route
-          path="/fermi"
-          element={<ComingSoonScreen title="フェルミ道場" lead="5ステップの型で1問ずつ解く" />}
-        />
+        <Route path="/fermi" element={<FermiListScreen />} />
         <Route
           path="/case"
           element={<ComingSoonScreen title="ケース道場" lead="タイマーとメモで本番形式の練習" />}
@@ -27,6 +26,7 @@ export function App() {
       </Route>
       {/* 出題中はタブを出さず、カードに集中する */}
       <Route path="/cards/study" element={<StudyScreen />} />
+      <Route path="/fermi/:id" element={<FermiExerciseScreen />} />
       <Route path="/records/import" element={<ImportScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
