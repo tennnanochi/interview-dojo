@@ -1,6 +1,6 @@
 // 端末内の保存(IndexedDB)。画面はここだけを読み書きし、Supabaseとは同期処理が裏でやり取りする
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
-import type { CardState, Grade, Review } from './types'
+import type { Attempt, AttemptKind, CardState, Grade, Review } from './types'
 
 // 書きかけの演習。端末内だけに置く(同期しない)
 export type DraftKind = 'fermi' | 'case'
@@ -17,12 +17,13 @@ interface DojoDB extends DBSchema {
   reviews: { key: string; value: Review; indexes: { cardId: string } }
   meta: { key: string; value: unknown }
   drafts: { key: string; value: Draft }
+  attempts: { key: string; value: Attempt }
 }
 
 let dbPromise: Promise<IDBPDatabase<DojoDB>> | null = null
 
 function db() {
-  dbPromise ??= openDB<DojoDB>('interview-dojo', 2, {
+  dbPromise ??= openDB<DojoDB>('interview-dojo', 3, {
     upgrade(d, oldVersion) {
       // 版1:暗記帳
       if (oldVersion < 1) {
@@ -32,6 +33,8 @@ function db() {
       }
       // 版2:フェルミ道場・ケース道場の書きかけ
       if (oldVersion < 2) d.createObjectStore('drafts', { keyPath: 'key' })
+      // 版3:フェルミ道場・ケース道場の挑戦の記録
+      if (oldVersion < 3) d.createObjectStore('attempts', { keyPath: 'key' })
     },
   })
   return dbPromise
@@ -93,12 +96,13 @@ export async function setMeta(key: string, value: unknown): Promise<void> {
 
 // 端末内の学習履歴をすべて消す(別のユーザーでログインしたとき)
 export async function clearAll(): Promise<void> {
-  const tx = (await db()).transaction(['cardStates', 'reviews', 'meta', 'drafts'], 'readwrite')
+  const tx = (await db()).transaction(['cardStates', 'reviews', 'meta', 'drafts', 'attempts'], 'readwrite')
   await Promise.all([
     tx.objectStore('cardStates').clear(),
     tx.objectStore('reviews').clear(),
     tx.objectStore('meta').clear(),
     tx.objectStore('drafts').clear(),
+    tx.objectStore('attempts').clear(),
     tx.done,
   ])
 }
@@ -124,4 +128,23 @@ export async function deleteDraft(kind: DraftKind, questionId: string): Promise<
 export async function loadDrafts<T>(kind: DraftKind): Promise<Draft<T>[]> {
   const all = (await (await db()).getAll('drafts')) as Draft<T>[]
   return all.filter((d) => d.kind === kind).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+}
+
+// ---- 挑戦の記録 ----
+
+// 記録を書く。鍵が同じものは上書きされるので、二重にならない
+export async function saveAttempts(attempts: Attempt[]): Promise<void> {
+  if (attempts.length === 0) return
+  const tx = (await db()).transaction('attempts', 'readwrite')
+  await Promise.all([...attempts.map((a) => tx.store.put(a)), tx.done])
+}
+
+// 新しい順に返す。種類を指定しなければ全部
+export async function loadAttempts(kind?: AttemptKind): Promise<Attempt[]> {
+  const all = await (await db()).getAll('attempts')
+  return all.filter((a) => !kind || a.kind === kind).sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+}
+
+export async function loadUnsyncedAttempts(): Promise<Attempt[]> {
+  return (await loadAttempts()).filter((a) => !a.synced)
 }

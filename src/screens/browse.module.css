@@ -180,3 +180,9 @@
   font-size: 11px;
   white-space: nowrap;
 }
+
+.score {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}

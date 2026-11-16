@@ -4,7 +4,7 @@ import { FermiTypesSheet } from '../components/FermiTypesSheet'
 import { fermiById, fermiNo, fermiTypes, type FermiQuestion } from '../data/fermi'
 import { FERMI_STEPS, STEP_MARK, approachOptions, emptyFermiDraft, filledSteps, isBlankFermiDraft, type FermiDraft } from '../domain/fermiDraft'
 import { useDraft } from '../hooks/useDraft'
-import s from './FermiExerciseScreen.module.css'
+import s from './exercise.module.css'
 
 // 各段階のヒント(型の確認用)
 const HINTS = [

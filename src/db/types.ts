@@ -21,3 +21,24 @@ export type Review = {
   reviewedAt: string // ISO
   synced: boolean // Supabaseに送ったか(端末内だけの印)
 }
+
+// ---- フェルミ道場・ケース道場の挑戦の記録(Supabaseの attempts と対応する) ----
+
+export type AttemptKind = 'fermi' | 'case'
+
+export type SelfScore = {
+  checks: string[] // チェックを付けた項目のid
+  max: number // チェック項目の数
+  phases?: { name: string; sec: number; usedSec: number }[] // ケース道場:区間ごとの制限時間と、実際に使った時間
+}
+
+export type Attempt = {
+  key: string // 種類|問題id|保存時刻。同じ記録を二重に持たないための鍵
+  kind: AttemptKind
+  questionId: string
+  answer: string // 記入内容(JSONの文字列)
+  selfScore: SelfScore
+  durationSec: number | null
+  createdAt: string // ISO
+  synced: boolean // Supabaseに送ったか(端末内だけの印)
+}

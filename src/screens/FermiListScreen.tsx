@@ -2,7 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FermiTypesSheet } from '../components/FermiTypesSheet'
 import { ScreenHeader } from '../components/ScreenHeader'
-import { loadDrafts } from '../db/local'
+import { loadAttempts, loadDrafts } from '../db/local'
+import type { Attempt } from '../db/types'
+import { latestByQuestion, scoreLabel } from '../domain/attempts'
+import { useSync } from '../sync/controller'
 import { fermiGenres, fermiNo, fermiQuestions, type FermiQuestion } from '../data/fermi'
 import s from './browse.module.css'
 
@@ -18,9 +21,18 @@ export function FermiListScreen() {
   const [typesOpen, setTypesOpen] = useState(false)
   const [drafts, setDrafts] = useState<ReadonlySet<string>>(new Set()) // 書きかけがある問題
 
+  const [latest, setLatest] = useState<ReadonlyMap<string, Attempt>>(new Map()) // 問題ごとの前回の記録
+  const [onlyNew, setOnlyNew] = useState(false) // 未挑戦だけ
+  const { lastSyncedAt } = useSync()
+
   useEffect(() => {
     loadDrafts('fermi').then((list) => setDrafts(new Set(list.map((d) => d.questionId))), (e) => console.error(e))
   }, [])
+
+  // 同期が終わるたびに読み直す(他の端末の記録が入るため)
+  useEffect(() => {
+    loadAttempts('fermi').then((list) => setLatest(latestByQuestion(list)), (e) => console.error(e))
+  }, [lastSyncedAt])
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -28,9 +40,10 @@ export function FermiListScreen() {
       (x) =>
         (!genre || x.genre === genre) &&
         (origin === 'all' || x.origin === origin) &&
+        (!onlyNew || !latest.has(x.id)) &&
         (!q || `${x.title} ${x.genre} ${fermiNo(x)}`.toLowerCase().includes(q)),
     )
-  }, [query, genre, origin])
+  }, [query, genre, origin, onlyNew, latest])
 
   return (
     <div className={s.screen}>
@@ -76,12 +89,20 @@ export function FermiListScreen() {
               {label}
             </button>
           ))}
+          <button type="button" className={s.chip} aria-pressed={onlyNew} onClick={() => setOnlyNew((v) => !v)}>
+            未挑戦だけ
+          </button>
         </div>
       </div>
 
       <div className={s.list}>
         <p className={s.count}>
           <span className="num">{list.length}</span>問
+          {latest.size > 0 && (
+            <>
+              ・挑戦済み <span className="num">{latest.size}</span>問
+            </>
+          )}
         </p>
         {list.length === 0 ? (
           <p className={s.empty}>該当する問題がありません</p>
@@ -89,13 +110,14 @@ export function FermiListScreen() {
           <ul className={s.items}>
             {list.map((q) => (
               <li key={q.id}>
-                <Link to={`/fermi/${q.id}`} className={s.item}>
+                <Link to={latest.has(q.id) && !drafts.has(q.id) ? `/fermi/${q.id}/review` : `/fermi/${q.id}`} className={s.item}>
                   <span className={s.no}>{fermiNo(q)}</span>
                   <span className={s.itemText}>
                     <span className={s.itemTitle}>{q.title}</span>
                     <span className={s.itemMeta}>
                       {q.genre}・{sourceLabel(q)}
                       {drafts.has(q.id) && <span className={s.badge}>書きかけ</span>}
+                      {latest.has(q.id) && <span className={`${s.badge} ${s.score} num`}>前回 {scoreLabel(latest.get(q.id)!.selfScore)}</span>}
                     </span>
                   </span>
                   <svg className={s.chevron} aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

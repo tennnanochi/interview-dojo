@@ -1,0 +1,94 @@
+/* 模範解答・振り返りの画面で使う見た目 */
+.record {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 6px;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.record strong {
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pair + .pair {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.note {
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-weight: 400;
+}
+
+.good {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.blank {
+  color: var(--text-sub);
+}
+
+.mono {
+  font-family: var(--font-num), var(--font-body);
+  font-size: 14px;
+}
+
+/* 模範解答は薄緑の地で、自分の記入と見分ける */
+.model {
+  padding: 10px 12px;
+  background: var(--accent-soft);
+  border-radius: 10px;
+}
+
+.model .label {
+  color: var(--accent-strong);
+}
+
+.plain {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.error {
+  margin: 0;
+  font-size: 13px;
+  color: var(--danger);
+}
