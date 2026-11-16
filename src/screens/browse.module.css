@@ -170,3 +170,13 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.badge {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font-size: 11px;
+  white-space: nowrap;
+}

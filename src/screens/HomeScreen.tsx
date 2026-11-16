@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SyncBadge } from '../components/SyncBadge'
 import { ScreenHeader } from '../components/ScreenHeader'
 import { cards } from '../data/cards'
-import { fermiQuestions } from '../data/fermi'
+import { fermiById, fermiQuestions, type FermiQuestion } from '../data/fermi'
+import { loadDrafts } from '../db/local'
 import { ProgressBar } from '../components/ProgressBar'
 import { toDateKey } from '../domain/date'
 import { countDue, studyPath } from '../domain/session'
@@ -12,6 +14,11 @@ import s from './screens.module.css'
 // ホーム。今日の復習枚数と、練習メニューへの入口
 export function HomeScreen() {
   const { ready, states } = useCardStates()
+  const [resume, setResume] = useState<FermiQuestion | null>(null) // フェルミ道場で、いちばん最近の書きかけ
+
+  useEffect(() => {
+    loadDrafts('fermi').then((list) => setResume((list[0] && fermiById.get(list[0].questionId)) ?? null), (e) => console.error(e))
+  }, [])
   const due = countDue(cards, states, toDateKey(new Date()))
   const known = [...states.values()].filter((st) => st.status === 'known').length
 
@@ -57,12 +64,12 @@ export function HomeScreen() {
           <span className={s.sub}>人口・面積・市場規模・アンカーの数字</span>
         </Link>
 
-        <Link to="/fermi" className={`${s.panel} ${s.link}`}>
+        <Link to={resume ? `/fermi/${resume.id}` : '/fermi'} className={`${s.panel} ${s.link}`}>
           <div className={s.panelHead}>
             <span className={s.panelTitle}>フェルミ道場</span>
-            <span className={`${s.sub} num`}>{fermiQuestions.length}問</span>
+            <span className={`${s.sub} num`}>{resume ? '続きから' : `${fermiQuestions.length}問`}</span>
           </div>
-          <span className={s.sub}>5ステップの型で1問ずつ解く</span>
+          <span className={s.sub}>{resume ? resume.title : '5ステップの型で1問ずつ解く'}</span>
         </Link>
 
         <Link to="/case" className={`${s.panel} ${s.link}`}>

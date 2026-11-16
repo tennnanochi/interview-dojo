@@ -2,20 +2,36 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
 import type { CardState, Grade, Review } from './types'
 
+// 書きかけの演習。端末内だけに置く(同期しない)
+export type DraftKind = 'fermi' | 'case'
+export type Draft<T = unknown> = {
+  key: string // 種類:問題id
+  kind: DraftKind
+  questionId: string
+  data: T
+  updatedAt: string
+}
+
 interface DojoDB extends DBSchema {
   cardStates: { key: string; value: CardState }
   reviews: { key: string; value: Review; indexes: { cardId: string } }
   meta: { key: string; value: unknown }
+  drafts: { key: string; value: Draft }
 }
 
 let dbPromise: Promise<IDBPDatabase<DojoDB>> | null = null
 
 function db() {
-  dbPromise ??= openDB<DojoDB>('interview-dojo', 1, {
-    upgrade(d) {
-      d.createObjectStore('cardStates', { keyPath: 'cardId' })
-      d.createObjectStore('reviews', { keyPath: 'key' }).createIndex('cardId', 'cardId')
-      d.createObjectStore('meta')
+  dbPromise ??= openDB<DojoDB>('interview-dojo', 2, {
+    upgrade(d, oldVersion) {
+      // 版1:暗記帳
+      if (oldVersion < 1) {
+        d.createObjectStore('cardStates', { keyPath: 'cardId' })
+        d.createObjectStore('reviews', { keyPath: 'key' }).createIndex('cardId', 'cardId')
+        d.createObjectStore('meta')
+      }
+      // 版2:フェルミ道場・ケース道場の書きかけ
+      if (oldVersion < 2) d.createObjectStore('drafts', { keyPath: 'key' })
     },
   })
   return dbPromise
@@ -77,6 +93,35 @@ export async function setMeta(key: string, value: unknown): Promise<void> {
 
 // 端末内の学習履歴をすべて消す(別のユーザーでログインしたとき)
 export async function clearAll(): Promise<void> {
-  const tx = (await db()).transaction(['cardStates', 'reviews', 'meta'], 'readwrite')
-  await Promise.all([tx.objectStore('cardStates').clear(), tx.objectStore('reviews').clear(), tx.objectStore('meta').clear(), tx.done])
+  const tx = (await db()).transaction(['cardStates', 'reviews', 'meta', 'drafts'], 'readwrite')
+  await Promise.all([
+    tx.objectStore('cardStates').clear(),
+    tx.objectStore('reviews').clear(),
+    tx.objectStore('meta').clear(),
+    tx.objectStore('drafts').clear(),
+    tx.done,
+  ])
+}
+
+// ---- 書きかけの演習 ----
+
+const draftKey = (kind: DraftKind, questionId: string) => `${kind}:${questionId}`
+
+export async function loadDraft<T>(kind: DraftKind, questionId: string): Promise<Draft<T> | undefined> {
+  return (await db()).get('drafts', draftKey(kind, questionId)) as Promise<Draft<T> | undefined>
+}
+
+export async function saveDraft<T>(kind: DraftKind, questionId: string, data: T): Promise<void> {
+  const draft: Draft = { key: draftKey(kind, questionId), kind, questionId, data, updatedAt: new Date().toISOString() }
+  await (await db()).put('drafts', draft)
+}
+
+export async function deleteDraft(kind: DraftKind, questionId: string): Promise<void> {
+  await (await db()).delete('drafts', draftKey(kind, questionId))
+}
+
+// その種類の書きかけを、新しい順に返す
+export async function loadDrafts<T>(kind: DraftKind): Promise<Draft<T>[]> {
+  const all = (await (await db()).getAll('drafts')) as Draft<T>[]
+  return all.filter((d) => d.kind === kind).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
 }

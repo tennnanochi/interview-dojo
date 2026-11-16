@@ -6,6 +6,7 @@ import { RecordsScreen } from './screens/RecordsScreen'
 import { StudyScreen } from './screens/StudyScreen'
 import { FermiExerciseScreen } from './screens/FermiExerciseScreen'
 import { FermiListScreen } from './screens/FermiListScreen'
+import { FermiReviewScreen } from './screens/FermiReviewScreen'
 import { ImportScreen } from './screens/ImportScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { ComingSoonScreen } from './screens/ComingSoonScreen'
@@ -27,6 +28,7 @@ export function App() {
       {/* 出題中はタブを出さず、カードに集中する */}
       <Route path="/cards/study" element={<StudyScreen />} />
       <Route path="/fermi/:id" element={<FermiExerciseScreen />} />
+      <Route path="/fermi/:id/review" element={<FermiReviewScreen />} />
       <Route path="/records/import" element={<ImportScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />

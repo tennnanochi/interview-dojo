@@ -59,8 +59,226 @@
   line-height: 1.45;
 }
 
-.note {
+.restored {
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 8px;
   font-size: 13px;
   color: var(--text-sub);
+}
+
+.textButton {
+  min-height: var(--tap);
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* 5段階の印:記入済みは薄緑、いまの段階は黒 */
+.steps {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.step {
+  min-height: var(--tap);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-sub);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.done {
+  border-color: var(--accent-soft);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.current {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--surface);
+  font-weight: 700;
+}
+
+.card {
+  flex: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cardSub {
+  margin: -10px 0 0;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  min-height: 56px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.option.on {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  background: var(--accent-soft);
+}
+
+.optionTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.optionSub {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.fieldSub {
+  margin-top: -4px;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.textarea,
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+  color: var(--text);
+  font-size: 16px; /* 16px未満だとスマホで入力時に画面が拡大される */
+  line-height: 1.6;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.input {
+  min-height: 48px;
+}
+
+.textarea:focus,
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.mono {
+  font-family: var(--font-num), var(--font-body);
+  font-size: 15px;
+}
+
+.hint {
+  flex: none;
+  margin: 0;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--field);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+.hint svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.actions {
+  flex: none;
+  padding: 10px 20px calc(16px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.primary,
+.secondary {
+  min-height: 52px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.secondary {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.secondary:disabled {
+  opacity: 0.45;
+  cursor: default;
 }

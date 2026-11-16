@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FermiTypesSheet } from '../components/FermiTypesSheet'
 import { ScreenHeader } from '../components/ScreenHeader'
+import { loadDrafts } from '../db/local'
 import { fermiGenres, fermiNo, fermiQuestions, type FermiQuestion } from '../data/fermi'
 import s from './browse.module.css'
 
@@ -15,6 +16,11 @@ export function FermiListScreen() {
   const [genre, setGenre] = useState<string | null>(null)
   const [origin, setOrigin] = useState<Origin>('all')
   const [typesOpen, setTypesOpen] = useState(false)
+  const [drafts, setDrafts] = useState<ReadonlySet<string>>(new Set()) // 書きかけがある問題
+
+  useEffect(() => {
+    loadDrafts('fermi').then((list) => setDrafts(new Set(list.map((d) => d.questionId))), (e) => console.error(e))
+  }, [])
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -89,6 +95,7 @@ export function FermiListScreen() {
                     <span className={s.itemTitle}>{q.title}</span>
                     <span className={s.itemMeta}>
                       {q.genre}・{sourceLabel(q)}
+                      {drafts.has(q.id) && <span className={s.badge}>書きかけ</span>}
                     </span>
                   </span>
                   <svg className={s.chevron} aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

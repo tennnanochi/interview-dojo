@@ -6,6 +6,7 @@
   --on-accent: #ffffff;
   --bg: #eef1ee;
   --surface: #ffffff;
+  --field: #f5f7f5; /* 入力欄とヒントの地色 */
   --text: #18221d;
   --text-sub: #5d6b64;
   --line: #d3dbd6;
