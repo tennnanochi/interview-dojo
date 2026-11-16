@@ -3,6 +3,7 @@ import { AppLayout } from './components/AppLayout'
 import { HomeScreen } from './screens/HomeScreen'
 import { CaseBankScreen } from './screens/CaseBankScreen'
 import { CasePracticeScreen } from './screens/CasePracticeScreen'
+import { CaseReviewScreen } from './screens/CaseReviewScreen'
 import { CardListScreen } from './screens/CardListScreen'
 import { RecordsScreen } from './screens/RecordsScreen'
 import { StudyScreen } from './screens/StudyScreen'
@@ -28,6 +29,7 @@ export function App() {
       <Route path="/fermi/:id" element={<FermiExerciseScreen />} />
       <Route path="/fermi/:id/review" element={<FermiReviewScreen />} />
       <Route path="/case/:id" element={<CasePracticeScreen />} />
+      <Route path="/case/:id/review" element={<CaseReviewScreen />} />
       <Route path="/records/import" element={<ImportScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />

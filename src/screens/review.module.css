@@ -92,3 +92,33 @@
   font-size: 13px;
   color: var(--danger);
 }
+
+/* 区間ごとの使用時間 */
+.times {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.times div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 15px;
+}
+
+.times dt {
+  color: var(--text-sub);
+}
+
+.times dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.times dd span {
+  font-weight: 400;
+  color: var(--text-sub);
+}

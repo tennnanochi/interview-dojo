@@ -4,7 +4,7 @@ import { Calculator } from '../components/Calculator'
 import { CardReference } from '../components/CardReference'
 import { askedLabel, caseById, caseLevels, caseNo, caseTypeNames, type CaseQuestion } from '../data/cases'
 import { emptyCaseDraft, isBlankCaseDraft, type CaseDraft, type CaseTab } from '../domain/caseDraft'
-import { PHASE_MAX, PHASE_MIN, defaultPhases, finish, formatClock, isDone, isPaused, pause, resume, skip, startTimer, tick, viewTimer, type Phase, type TimerState } from '../domain/caseTimer'
+import { PHASE_MAX, PHASE_MIN, defaultPhases, formatClock, isDone, isPaused, pause, resume, skip, startTimer, tick, viewTimer, type Phase, type TimerState } from '../domain/caseTimer'
 import { useDraft } from '../hooks/useDraft'
 import s from './exercise.module.css'
 import c from './CasePracticeScreen.module.css'
@@ -129,7 +129,7 @@ function Practice({ question }: { question: CaseQuestion }) {
   const lastPhase = !done && ticked!.index === ticked!.phases.length - 1
 
   function onFinish() {
-    update({ timer: finish(timer!, Date.now()) })
+    update({ timer: pause(timer!, Date.now()) }) // 止めておく(振り返りから「練習に戻る」と、続きから再開できる)
     flush()
     navigate(`/case/${question.id}/review`)
   }
